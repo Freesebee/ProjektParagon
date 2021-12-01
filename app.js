@@ -1,41 +1,57 @@
-class Produkt {
+class Product {
     
     constructor(
-        nazwa,
-        ilosc,
-        cena,
+        name,
+        quantity,
+        price,
     ) {
-        this.nazwa = nazwa;
-        this.ilosc = ilosc;
-        this.cena = cena;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
     }
 
-    suma() { return this.cena * this.ilosc }
+    suma() { return this.price * this.quantity }
 }
 
 class Paragon {
 
-    tablica = []
+    constructor() {
+        this.array = []
+    }
 
-    aktualizujLocalStorage() {
-        localStorage.removeItem('tablica');
+    updateLocalStorage() {
+        localStorage.removeItem('array');
         
-        localStorage.setItem('tablica', JSON.stringify(this.tablica));
+        localStorage.setItem('array', JSON.stringify(this.array));
 
-        var retrievedObject = localStorage.getItem('tablica');
+        var retrievedObject = localStorage.getItem('array');
 
         return JSON.parse(retrievedObject);
     }
 
-    dodajProdukt(produkt) {
-        this.tablica.push(produkt)
+    addProduct(product) {
+        this.array.push(product)
+        updateLocalStorage()
     }
 
-    edytujProdukt(indeks, nowyProdukt) {
-        this.tablica[indeks] = nowyProdukt
+    edytujProdukt(index, newProduct) {
+        this.array[index] = newProduct
+        updateLocalStorage()
     }
 
-    usunProdukt(indeks) {
-        this.tablica.slice(indeks, 1)
+    usunProdukt(index) {
+        this.array.slice(index, 1)
+        updateLocalStorage()
+    }
+
+    zmienKolejnosc(index1, index2) {
+        temp = this.array[index1]
+        this.array[index1] = this.array[index2]
+        this.array[index2] = temp
+        updateLocalStorage()
+    }
+
+    getArray() {
+        return this.array
     }
 }
