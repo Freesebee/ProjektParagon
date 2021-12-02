@@ -54,4 +54,10 @@ class Paragon {
     getArray() {
         return this.array
     }
+
 }
+
+form.addEventListener('submit',function(event){
+    event.preventDefault();
+
+})
