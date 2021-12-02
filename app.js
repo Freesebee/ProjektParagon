@@ -56,8 +56,32 @@ class Paragon {
     }
 
 }
+//walidacja danych
+const productName = document.getElementById('name');
+const quantity = document.getElementById('quantity');
+const price = document.getElementById('price');
 
 form.addEventListener('submit',function(event){
     event.preventDefault();
 
+    validateForm();
 })
+
+function validateForm(){
+    const productNameValue = productName.value.trim();
+    const quantityValue = quantity.value.trim();
+    const priceValue = price.value.trim();
+
+    if(productNameValue === ''){
+        showError(productName, "Nazwa produktu nie może być pusta");
+    }
+    if(quantityValue === 'dd'){
+        showError(quantityValue, "dasd");
+    }
+}
+function showError(input, message){
+    const formControl = input.parentElement;
+    const small = formControl.querySelector('small');
+
+    small.innerText = message;
+}
