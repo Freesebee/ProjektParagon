@@ -62,13 +62,16 @@ const quantity = document.getElementById('quantity');
 const price = document.getElementById('price');
 const form = document.getElementById('addProduct');
 
+const productNameValue = productName.value;
+const quantityValue = quantity.value;
+const priceValue = price.value;
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
     if (validateForm()){
-        let product = new Product(productName,quantity,price)
+        let product = new Product(productNameValue,quantityValue,priceValue)
         receipt.addProduct(product);
-    } //zwrocenie false CHYBA zabezpiecza przed przeslaniem formularza
+    } 
 });
 
 function validateForm() {
@@ -118,6 +121,13 @@ function isZero(value) {
     else return false;
 }
 
+function isNegative(value){
+    if (value < 0){
+        return true
+    }
+    else return false;
+}
+
 function checkProductName() {
     const productNameValue = productName.value.trim();
 
@@ -148,6 +158,10 @@ function checkQuantity() {
         showError(quantity, 'Ilość nie może wynosić 0');
     }
 
+    else if (isNegative(quantityValue)) {
+        showError(quantity, 'Ilość nie może być ujemna');
+    }
+
     else {
         showSuccess(quantity);
         return true;
@@ -169,6 +183,10 @@ function checkPrice() {
 
     else if (isZero(priceValue)) {
         showError(price, 'Cena nie może wynosić 0');
+    }
+
+    else if (isNegative(priceValue)) {
+        showError(price, 'Cena nie może być ujemna');
     }
 
     else {
