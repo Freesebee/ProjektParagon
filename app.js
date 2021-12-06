@@ -13,8 +13,6 @@
           this.quantity = quantity;
           this.price = price;
       }
-  
-      suma() { return this.price * this.quantity; }
   }
   
   class Receipt {
@@ -224,27 +222,32 @@
   
   function writeProducts() {
   
-      var productList = document.getElementById('products')
+      let productList = document.getElementById('products')
   
       let productArray = receipt.getArray()
       
-      var rowCount = productList.rows.length
-      for(let i = 0; i < rowCount; i++) {
+      let rowCount = productList.rows.length
+      for(let i = 1; i < rowCount; i++) {
         productList.deleteRow(-1);
       }
       
       for(let i = 0; i < productArray.length; i++) {
-        console.log('i:'+i)
-        var LineProduct = productList.insertRow(i)
+        let LineProduct = productList.insertRow(i+1)
   
-        var nameShow = LineProduct.insertCell(0);
+        let indexShow = LineProduct.insertCell(0);
+        indexShow.innerHTML = (i+1);
+        
+        let nameShow = LineProduct.insertCell(1);
         nameShow.innerHTML = productArray[i].name;
   
-        var costShow = LineProduct.insertCell(1);
+        let costShow = LineProduct.insertCell(2);
         costShow.innerHTML = productArray[i].price;
   
-        var quantityShow = LineProduct.insertCell(2)
+        let quantityShow = LineProduct.insertCell(3)
         quantityShow.innerHTML = productArray[i].quantity;
+        
+        let sumShow = LineProduct.insertCell(4)
+        sumShow.innerHTML = (productArray[i].price * productArray[i].quantity);
       }   
   }
   
