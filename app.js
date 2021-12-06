@@ -13,7 +13,7 @@ class Product {
     suma() { return this.price * this.quantity }
 }
 
-class Paragon {
+class Receipt {
 
     constructor() {
         this.array = []
@@ -65,7 +65,10 @@ const form = document.getElementById('addProduct');
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    return validateForm(); //zwrocenie false CHYBA zabezpiecza przed przeslaniem formularza
+    if (validateForm()){
+        let product = new Product(productName,quantity,price)
+        receipt.addProduct(product);
+    } //zwrocenie false CHYBA zabezpiecza przed przeslaniem formularza
 });
 
 function validateForm() {
@@ -199,3 +202,6 @@ writeProducts();
 
 //TODO: pamietac o skrocaniu liczb do 2 miejsc po przecinku pozniej w  kodzie bo formularz pozwala 
 //      przesylac liczby typu 123.456789
+
+//TESTOWANIE
+var receipt = new Receipt();
