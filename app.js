@@ -24,7 +24,14 @@ class Receipt {
     }
 
     getLocalStorage() {
-      return JSON.parse(localStorage.getItem('array'));
+      let dataArray = JSON.parse(localStorage.getItem('array'))
+      if (dataArray === null || dataArray === '') {
+        return [];
+      }
+      else {
+        return dataArray;
+      }
+        
     }
   
     updateLocalStorage() {
@@ -33,23 +40,30 @@ class Receipt {
   
     addProduct(product) {
       
-        //this.array = JSON.parse(localStorage.getItem('array'))
+        this.array = this.getLocalStorage()
         this.array.push(product);
         this.updateLocalStorage()
     }
 
     edytujProdukt(index, newProduct) {
+        this.array = this.getLocalStorage()
         this.array[index] = newProduct
+        this.updateLocalStorage()
     }
 
     usunProdukt(index) {
+        this.array = this.getLocalStorage()
         this.array.slice(index, 1)
+        this.updateLocalStorage()
+
     }
 
     zmienKolejnosc(index1, index2) {
+        this.array = this.getLocalStorage()
         temp = this.array[index1]
         this.array[index1] = this.array[index2]
         this.array[index2] = temp
+        this.updateLocalStorage()
     }
 
     getArray() {
@@ -167,7 +181,11 @@ function checkQuantity() {
     else if (isZero(quantityValue)) {
         showError(quantity, 'Ilość nie może wynosić 0');
     }
-
+    
+    else if (isNegative(quantityValue)) {
+        showError(quantity, 'Ilość nie może być ujemna');
+    }
+  
     else {
         showSuccess(quantity);
         return true;
@@ -189,6 +207,10 @@ function checkPrice() {
 
     else if (isZero(priceValue)) {
         showError(price, 'Cena nie może wynosić 0');
+    }
+  
+    else if (isNegative(priceValue)) {
+        showError(price, 'Cena nie może być ujemna');
     }
 
     else {
