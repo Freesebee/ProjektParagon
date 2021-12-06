@@ -168,6 +168,10 @@ function checkPrice() {
         showError(price, 'Cena nie może wynosić 0');
     }
 
+    else if (isNegative(priceValue)) {
+        showError(price, 'Cena nie może być ujemna');
+    }
+
     else {
         showSuccess(price);
         return true;
