@@ -176,6 +176,24 @@ function checkPrice() {
     return false;
 }
 
+function writeProducts() {
+    var productList = document.getElementById('products')
+
+    var productAmount = productList.rows.length;
+    var LineProduct = productList.insertRow(productAmount)
+
+    var nameShow = LineProduct.insertCell(0);
+    console.log(nameShow)
+    nameShow.innerHTML = productName;
+
+    var costShow = LineProduct.insertCell(1);
+    costShow.innerHTML = price;
+
+    var quantityShow = LineProduct.insertCell(2)
+    quantityShow.innerHTML = quantity;
+}
+writeProducts();
+
 //TODO: sprawdzic czy jest poprawnie zabezpieczony przed przeslaniem danych formularza
 //      w przypadku zlych danych
 
