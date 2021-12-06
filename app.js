@@ -95,6 +95,7 @@ form.addEventListener('submit', function (event) {
         )
 
         receipt.addProduct(product);
+        writeProducts();
     } 
 });
 
@@ -224,12 +225,13 @@ function checkPrice() {
 function writeProducts() {
 
     var productList = document.getElementById('products')
+    console.log('before loop')
 
     for(let i = 0; i < receipt.getArray().length; i++) {
+      console.log('i:'+i)
       var LineProduct = productList.insertRow(i)
 
       var nameShow = LineProduct.insertCell(0);
-      console.log(nameShow)
       nameShow.innerHTML = 'dupa';
 
       var costShow = LineProduct.insertCell(1);
