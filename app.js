@@ -14,7 +14,7 @@ class Product {
 
     sum() {
         return Math.round(this.quantity * this.price * 100) / 100
-    };
+    }
 }
 
 class Receipt {
@@ -40,31 +40,42 @@ class Receipt {
 
     addProduct(product) {
 
+        if (product === null || product === undefined) throw 'Product parameter is null';
+        
         this.array = this.getLocalStorage()
         this.array.push(product);
         this.updateLocalStorage()
     }
 
     editProduct(index, newProduct) {
+        
+        if (index < 0 || index > this.getArray().length) throw 'Invalid index parameter';
+        if (product === null || product === undefined) throw 'Product parameter is null';
+
         this.array = this.getLocalStorage()
         this.array[index] = newProduct
         this.updateLocalStorage()
     }
 
     deleteProduct(index) {
+      
+        if (index < 0 || index > this.getArray().length) throw 'Invalid index parameter';
+
         this.array = this.getLocalStorage()
         this.array.splice(index, 1)
         this.updateLocalStorage()
     }
 
     moveProduct(index1, index2) {
-        if(index1==0 || index2 ==0)
-        {}else{this.array = this.getLocalStorage()
+      
+        if (index1 < 0 || index1 > this.getArray().length) throw 'Invalid index1 parameter';
+        if (index2 < 0 || index2 > this.getArray().length) throw 'Invalid index2 parameter';
+
+        this.array = this.getLocalStorage()
         let temp = this.array[index1]
         this.array[index1] = this.array[index2]
         this.array[index2] = temp
-        this.updateLocalStorage()}
-        
+        this.updateLocalStorage()
     }
 
     getArray() {
@@ -101,8 +112,7 @@ form.addEventListener('submit', function (event) {
         let product = new Product(
             productName.value.trim(),
             Math.round(quantity.value.trim() * 100) / 100,
-            Math.round(price.value.trim() * 100) / 100,
-        )
+            Math.round(price.value.trim() * 100) / 100)
 
         receipt.addProduct(product);
         writeProducts();
@@ -273,7 +283,7 @@ function writeProducts() {
         upShow.innerHTML = '<input type="button" onClick="upProduct(\'' + i + '\')" value="/\\">'
         
         let downShow = LineProduct.insertCell(8)
-        downShow.innerHTML = '<input type="button" onClick="downProductReal(\'' + i + '\')" value="\\/">'
+        downShow.innerHTML = '<input type="button" onClick="downProduct(\'' + i + '\')" value="\\/">'
     }
 
     let LineProduct = productList.insertRow(productArray.length + 1)
@@ -282,7 +292,7 @@ function writeProducts() {
     LineProduct.insertCell(1);
     LineProduct.insertCell(2);
     LineProduct.insertCell(3).innerHTML = 'RAZEM';
-    LineProduct.insertCell(4).innerHTML = receipt.getSum();;
+    LineProduct.insertCell(4).innerHTML = receipt.getSum()
     LineProduct.insertCell(5);
     LineProduct.insertCell(6);
     LineProduct.insertCell(7);
@@ -297,14 +307,17 @@ function deleteProductReal(index) {
 }
 
 function upProduct(index){
-  receipt.moveProduct(index, index-1);
-  writeProducts();
+  if (index > 0) {
+    receipt.moveProduct(index, index-1);
+    writeProducts();
+  }
 }
 
 function downProduct(index){
-  receipt.moveProduct(index, index+1)
-  writeProducts();
+  console.log(index + ' ' + (1 + +index))
+  if (index < receipt.getArray().length-1) {
+    console.log(index + ' ' + (1 + +index))
+    receipt.moveProduct(index, +index +1)
+    writeProducts();
+  }
 }
-
-
-
