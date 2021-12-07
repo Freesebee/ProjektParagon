@@ -53,7 +53,9 @@ class Receipt {
         if (product === null || product === undefined) throw 'Product parameter is null';
 
         this.array = this.getLocalStorage()
-        this.array[index] = newProduct
+        this.array[index].name = newProduct.name
+        this.array[index].price = newProduct.price
+        this.array[index].quantity = newProduct.quantity
         this.updateLocalStorage()
     }
 
