@@ -41,17 +41,15 @@ class Receipt {
     addProduct(product) {
 
         if (product === null || product === undefined) throw 'Product parameter is null';
-        
+
         this.array = this.getLocalStorage()
         this.array.push(product);
         this.updateLocalStorage()
     }
 
     editProduct(index, newProduct) {
-        
         if (index < 0 || index > this.getArray().length) throw 'Invalid index parameter';
-        if (product === null || product === undefined) throw 'Product parameter is null';
-
+        if (newProduct === null || newProduct === undefined) throw 'Product parameter is null';
         this.array = this.getLocalStorage()
         this.array[index].name = newProduct.name
         this.array[index].price = newProduct.price
@@ -60,7 +58,7 @@ class Receipt {
     }
 
     deleteProduct(index) {
-      
+
         if (index < 0 || index > this.getArray().length) throw 'Invalid index parameter';
 
         this.array = this.getLocalStorage()
@@ -69,7 +67,7 @@ class Receipt {
     }
 
     moveProduct(index1, index2) {
-      
+
         if (index1 < 0 || index1 > this.getArray().length) throw 'Invalid index1 parameter';
         if (index2 < 0 || index2 > this.getArray().length) throw 'Invalid index2 parameter';
 
@@ -97,6 +95,7 @@ class Receipt {
 
 //TESTOWANIE
 var receipt = new Receipt();
+var editIndex;
 
 //walidacja danych
 const productName = document.getElementById('name');
@@ -104,9 +103,12 @@ const quantity = document.getElementById('quantity');
 const price = document.getElementById('price');
 const form = document.getElementById('addProduct');
 
+
+
 let productNameValue = productName.value.trim();
 let quantityValue = quantity.value.trim();
 let priceValue = price.value.trim();
+
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -114,12 +116,22 @@ form.addEventListener('submit', function (event) {
         let product = new Product(
             productName.value.trim(),
             Math.round(quantity.value.trim() * 100) / 100,
-            Math.round(price.value.trim() * 100) / 100)
+            Math.round(price.value.trim() * 100) / 100
+        )
 
-        receipt.addProduct(product);
+        if (this.lastElementChild.id === "Add") {
+            receipt.addProduct(product);
+        }
+        else if (this.lastElementChild.id === "Save") {
+            deleteSaveButton();
+            addAddButton();
+            receipt.editProduct(editIndex, product);
+
+        }
         writeProducts();
     }
 });
+
 
 function validateForm() {
 
@@ -276,14 +288,14 @@ function writeProducts() {
         sumShow.innerHTML = (Product.prototype.sum.call(productArray[i]));
 
         let editShow = LineProduct.insertCell(5)
-        editShow.innerHTML = '<input type="button" onClick="" value="Edytuj">'
+        editShow.innerHTML = '<input type="button" onClick="getEditFieldIndex(\'' + i + '\')" value="Edytuj">'
 
         let deleteShow = LineProduct.insertCell(6)
         deleteShow.innerHTML = '<input type="button" onClick="deleteProductReal(\'' + i + '\')" value="Usuń">'
-    
+
         let upShow = LineProduct.insertCell(7)
         upShow.innerHTML = '<input type="button" onClick="upProduct(\'' + i + '\')" value="/\\">'
-        
+
         let downShow = LineProduct.insertCell(8)
         downShow.innerHTML = '<input type="button" onClick="downProduct(\'' + i + '\')" value="\\/">'
     }
@@ -308,16 +320,50 @@ function deleteProductReal(index) {
     writeProducts();
 }
 
-function upProduct(index){
-  if (index > 0) {
-    receipt.moveProduct(index, index-1);
-    writeProducts();
-  }
+function upProduct(index) {
+    if (index > 0) {
+        receipt.moveProduct(index, index - 1);
+        writeProducts();
+    }
 }
 
-function downProduct(index){
-  if (index < receipt.getArray().length-1) {
-    receipt.moveProduct(index, +index +1)
-    writeProducts();
-  }
+function downProduct(index) {
+    if (index < receipt.getArray().length - 1) {
+        receipt.moveProduct(index, +index + 1)
+        writeProducts();
+    }
+}
+
+function deleteAddButton() {
+    let addButton = document.getElementById('Add');
+    addButton.parentNode.removeChild(addButton);
+}
+
+function addSaveButton() {
+    let saveButton = document.createElement("input");
+    saveButton.setAttribute("type", "submit");
+    saveButton.setAttribute("value", "Zapisz");
+    saveButton.setAttribute("id", "Save");
+
+    form.appendChild(saveButton);
+}
+
+function deleteSaveButton() {
+    let saveButton = document.getElementById('Save');
+    saveButton.parentNode.removeChild(saveButton);
+}
+
+function addAddButton() {
+    let addButton = document.createElement("input");
+    addButton.setAttribute("type", "submit");
+    addButton.setAttribute("value", "Dodaj");
+    addButton.setAttribute("id", "Add");
+
+    form.appendChild(addButton);
+}
+
+function getEditFieldIndex(index) {
+    editIndex = index;
+    deleteAddButton();
+    addSaveButton();
 }
