@@ -23,3 +23,36 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
+
+
+.form {
+	padding: 20px 200px;
+  	font-size: 20px;
+  
+}
+
+.form-control {
+	padding-bottom: 20px;
+}
+
+.form-control input {
+    border: 2px solid black;
+	border-radius: 4px;
+	padding: 10px;
+	width: 100%;
+    font-size: 16px;
+}
+
+
+.form-control small {
+	color:crimson
+}
+
+#Add {
+    background-color: lightskyblue;
+    border: 3px solid black;
+	font-size: 20px;
+	padding: 10px;
+	width: 108%;
+  
+}
