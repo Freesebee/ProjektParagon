@@ -43,11 +43,6 @@ table {
     font-size: 16px;
 }
 
-
-.form-control small {
-	color:crimson
-}
-
 #Add {
     background-color: lightskyblue;
     border: 3px solid black;
