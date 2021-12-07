@@ -248,6 +248,12 @@
         
         let sumShow = LineProduct.insertCell(4)
         sumShow.innerHTML = (productArray[i].price * productArray[i].quantity);
+
+        let editShow = LineProduct.insertCell(5)
+        editShow.innerHTML = '<input type="button" value="Edytuj">'
+
+        let deleteShow = LineProduct.insertCell(6)
+        deleteShow.innerHTML = '<input type="button" onClick="usunProdukt(i)" value="Usuń">'
       }   
   }
   
