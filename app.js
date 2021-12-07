@@ -52,17 +52,9 @@ class Receipt {
     }
 
     deleteProduct(index) {
-        console.log("deleting")
         this.array = this.getLocalStorage()
-        console.log("deleting2")
-
         this.array.splice(index, 1)
-        console.log("deleting3")
-
         this.updateLocalStorage()
-        console.log("deleting4")
-
-
     }
 
     moveProduct(index1, index2) {
@@ -295,7 +287,4 @@ function deleteProductReal(index) {
 
 }
 
-function test() {
-    console.log('test');
-}
 
