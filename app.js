@@ -1,6 +1,6 @@
+//jshint esnext:true
 (function(){
     'use strict';
-  //jshint esnext:true
   
   class Product {
   
@@ -13,6 +13,10 @@
           this.quantity = quantity;
           this.price = price;
       }
+
+      sum() {
+        return Math.round(this.quantity * this.price * 100) / 100
+      };
   }
   
   class Receipt {
@@ -43,20 +47,20 @@
           this.updateLocalStorage()
       }
   
-      edytujProdukt(index, newProduct) {
+      editProduct(index, newProduct) {
           this.array = this.getLocalStorage()
           this.array[index] = newProduct
           this.updateLocalStorage()
       }
   
-      usunProdukt(index) {
+      deleteProduct(index) {
           this.array = this.getLocalStorage()
           this.array.slice(index, 1)
           this.updateLocalStorage()
   
       }
   
-      zmienKolejnosc(index1, index2) {
+      moveProduct(index1, index2) {
           this.array = this.getLocalStorage()
           temp = this.array[index1]
           this.array[index1] = this.array[index2]
@@ -65,9 +69,18 @@
       }
   
       getArray() {
-          return this.getLocalStorage()
+        return this.getLocalStorage()
       }
-  
+      
+      getSum() {
+        let sum = 0
+
+        this.getLocalStorage().forEach(p => {
+            sum += Product.prototype.sum.call(p)
+        })
+
+        return sum
+      }
   }
   
   //TESTOWANIE
@@ -88,8 +101,8 @@
       if (validateForm()){
           let product = new Product(
             productName.value.trim(),
-            quantity.value.trim(),
-            price.value.trim()
+            Math.round(quantity.value.trim() * 100) / 100 ,
+            Math.round(price.value.trim() * 100) / 100,
           )
   
           receipt.addProduct(product);
@@ -222,45 +235,54 @@
   
   function writeProducts() {
   
-      let productList = document.getElementById('products')
-  
-      let productArray = receipt.getArray()
-      
-      let rowCount = productList.rows.length
-      for(let i = 1; i < rowCount; i++) {
+    let productList = document.getElementById('products')
+
+    let productArray = receipt.getArray()
+    
+    let rowCount = productList.rows.length
+    for(let i = 1; i < rowCount; i++) {
+        
         productList.deleteRow(-1);
-      }
-      
-      for(let i = 0; i < productArray.length; i++) {
+    }
+    
+    for(let i = 0; i < productArray.length; i++) {
+        
         let LineProduct = productList.insertRow(i+1)
-  
+
         let indexShow = LineProduct.insertCell(0);
         indexShow.innerHTML = (i+1);
         
         let nameShow = LineProduct.insertCell(1);
         nameShow.innerHTML = productArray[i].name;
-  
+
         let costShow = LineProduct.insertCell(2);
-        costShow.innerHTML = productArray[i].price;
-  
+        costShow.innerHTML = productArray[i].quantity;
+
         let quantityShow = LineProduct.insertCell(3)
-        quantityShow.innerHTML = productArray[i].quantity;
+        quantityShow.innerHTML = productArray[i].price;
         
         let sumShow = LineProduct.insertCell(4)
-        sumShow.innerHTML = (productArray[i].price * productArray[i].quantity);
+        sumShow.innerHTML = (Product.prototype.sum.call(productArray[i]));
 
         let editShow = LineProduct.insertCell(5)
-        editShow.innerHTML = '<input type="button" value="Edytuj">'
+        editShow.innerHTML = '<input type="button" onClick="" value="Edytuj">'
 
         let deleteShow = LineProduct.insertCell(6)
-        deleteShow.innerHTML = '<input type="button" onClick="usunProdukt(i)" value="Usuń">'
-      }   
+        deleteShow.innerHTML = '<input type="button" onClick="deleteProduct(i)" value="Usuń">'
+    }  
+
+    let LineProduct = productList.insertRow(productArray.length+1)
+  
+        LineProduct.insertCell(0);
+        LineProduct.insertCell(1);
+        LineProduct.insertCell(2);
+        LineProduct.insertCell(3).innerHTML = 'RAZEM';
+        LineProduct.insertCell(4).innerHTML = receipt.getSum();;
+        LineProduct.insertCell(5);
+        LineProduct.insertCell(6);
   }
   
   writeProducts();
-  
-  //TODO: sprawdzic czy jest poprawnie zabezpieczony przed przeslaniem danych formularza
-  //      w przypadku zlych danych
   
   //TODO: pamietac o skrocaniu liczb do 2 miejsc po przecinku pozniej w  kodzie bo formularz pozwala 
   //      przesylac liczby typu 123.456789
