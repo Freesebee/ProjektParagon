@@ -288,16 +288,16 @@ function writeProducts() {
         sumShow.innerHTML = (Product.prototype.sum.call(productArray[i]));
 
         let editShow = LineProduct.insertCell(5)
-        editShow.innerHTML = '<input type="button" id="editButton" onClick="getEditFieldIndex(\'' + i + '\')" value="Edytuj">'
+        editShow.innerHTML = '<input type="button" name="editButton" onClick="getEditFieldIndex(\'' + i + '\')" value="Edytuj">'
 
         let deleteShow = LineProduct.insertCell(6)
-        deleteShow.innerHTML = '<input type="button" id="deleteButton" onClick="deleteProductReal(\'' + i + '\')" value="Usuń">'
+        deleteShow.innerHTML = '<input type="button" name="deleteButton" onClick="deleteProductReal(\'' + i + '\')" value="Usuń">'
 
         let upShow = LineProduct.insertCell(7)
-        upShow.innerHTML = '<input type="button" id="upButton" onClick="upProduct(\'' + i + '\')" value="/\\">'
+        upShow.innerHTML = '<input type="button" name="upButton" onClick="upProduct(\'' + i + '\')" value="/\\">'
 
         let downShow = LineProduct.insertCell(8)
-        downShow.innerHTML = '<input type="button" id="downButton" onClick="downProduct(\'' + i + '\')" value="\\/">'
+        downShow.innerHTML = '<input type="button" name="downButton" onClick="downProduct(\'' + i + '\')" value="\\/">'
     }
 
     let LineProduct = productList.insertRow(productArray.length + 1)
@@ -416,31 +416,31 @@ function getEditFieldIndex(index) {
 }
 
 function enableTableButtons() {
-    document.querySelectorAll("#editButton").forEach(function(button) {
+    document.getElementsByName('editButton').forEach(function(button) {
         button.disabled = false
     });
-    document.querySelectorAll("#deleteButton").forEach(function(button) {
+    document.getElementsByName('deleteButton').forEach(function(button) {
         button.disabled = false
     });
-    document.querySelectorAll("#upButton").forEach(function(button) {
+    document.getElementsByName('upButton').forEach(function(button) {
         button.disabled = false
     });
-    document.querySelectorAll("#downButton").forEach(function(button) {
+    document.getElementsByName('downButton').forEach(function(button) {
         button.disabled = false
     });
 }
 
 function disableTableButtons() {
-    document.querySelectorAll("#editButton").forEach(function(button) {
+    document.getElementsByName('editButton').forEach(function(button) {
         button.disabled = true
     });
-    document.querySelectorAll("#deleteButton").forEach(function(button) {
+    document.getElementsByName('deleteButton').forEach(function(button) {
         button.disabled = true
     });
-    document.querySelectorAll("#upButton").forEach(function(button) {
+    document.getElementsByName('upButton').forEach(function(button) {
         button.disabled = true
     });
-    document.querySelectorAll("#downButton").forEach(function(button) {
+    document.getElementsByName('downButton').forEach(function(button) {
         button.disabled = true
     });
 }
