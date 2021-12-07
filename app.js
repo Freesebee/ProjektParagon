@@ -314,9 +314,7 @@ function upProduct(index){
 }
 
 function downProduct(index){
-  console.log(index + ' ' + (1 + +index))
   if (index < receipt.getArray().length-1) {
-    console.log(index + ' ' + (1 + +index))
     receipt.moveProduct(index, +index +1)
     writeProducts();
   }
