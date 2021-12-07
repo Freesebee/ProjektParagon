@@ -93,9 +93,10 @@ class Receipt {
     }
 }
 
-//TESTOWANIE
+//Zmienne
 var receipt = new Receipt();
 var editIndex;
+var isEditingMode;
 
 //walidacja danych
 const productName = document.getElementById('name');
@@ -123,8 +124,7 @@ form.addEventListener('submit', function (event) {
             receipt.addProduct(product);
         }
         else if (this.lastElementChild.id === "Save") {
-            deleteSaveButton();
-            addAddButton();
+            addingMode();
             receipt.editProduct(editIndex, product);
 
         }
@@ -366,4 +366,49 @@ function getEditFieldIndex(index) {
     editIndex = index;
     deleteAddButton();
     addSaveButton();
+}
+
+
+function addSaveButton() {
+    let saveButton = document.createElement("input");
+    saveButton.setAttribute("type", "submit");
+    saveButton.setAttribute("value", "Zapisz");
+    saveButton.setAttribute("id", "Save");
+
+    form.appendChild(saveButton);
+}
+
+function deleteSaveButton() {
+    let saveButton = document.getElementById('Save');
+    saveButton.parentNode.removeChild(saveButton);
+}
+
+function addAddButton() {
+    let addButton = document.createElement("input");
+    addButton.setAttribute("type", "submit");
+    addButton.setAttribute("value", "Dodaj");
+    addButton.setAttribute("id", "Add");
+
+    form.appendChild(addButton);
+}
+
+function editingMode() {
+    if (!isEditingMode) {
+        deleteAddButton();
+        addSaveButton();
+        isEditingMode = true;
+    }
+}
+
+function addingMode() {
+    if (isEditingMode) {
+        deleteSaveButton();
+        addAddButton();
+        isEditingMode = false;
+    }
+}
+
+function getEditFieldIndex(index) {
+    editIndex = index;
+    editingMode();
 }
