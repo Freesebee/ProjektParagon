@@ -79,7 +79,7 @@
             sum += Product.prototype.sum.call(p)
         })
 
-        return sum
+        return Math.round(sum * 100) / 100
       }
   }
   
@@ -283,8 +283,6 @@
   }
   
   writeProducts();
-  
-  //TODO: pamietac o skrocaniu liczb do 2 miejsc po przecinku pozniej w  kodzie bo formularz pozwala 
-  //      przesylac liczby typu 123.456789
-  })();
+
+})();
   
