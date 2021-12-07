@@ -58,11 +58,13 @@ class Receipt {
     }
 
     moveProduct(index1, index2) {
-        this.array = this.getLocalStorage()
+        if(index1==0 || index2 ==0)
+        {}else{this.array = this.getLocalStorage()
         let temp = this.array[index1]
         this.array[index1] = this.array[index2]
         this.array[index2] = temp
-        this.updateLocalStorage()
+        this.updateLocalStorage()}
+        
     }
 
     getArray() {
@@ -268,10 +270,10 @@ function writeProducts() {
         deleteShow.innerHTML = '<input type="button" onClick="deleteProductReal(\'' + i + '\')" value="Usuń">'
     
         let upShow = LineProduct.insertCell(7)
-        upShow.innerHTML = '<input type="button" onClick="upProduct(\'' + i + '\')" value="\\/">'
+        upShow.innerHTML = '<input type="button" onClick="upProduct(\'' + i + '\')" value="/\\">'
         
         let downShow = LineProduct.insertCell(8)
-        downShow.innerHTML = '<input type="button" onClick="deleteProductReal(\'' + i + '\')" value="/\\">'
+        downShow.innerHTML = '<input type="button" onClick="downProductReal(\'' + i + '\')" value="\\/">'
     }
 
     let LineProduct = productList.insertRow(productArray.length + 1)
@@ -296,6 +298,11 @@ function deleteProductReal(index) {
 
 function upProduct(index){
   receipt.moveProduct(index, index-1);
+  writeProducts();
+}
+
+function downProduct(index){
+  receipt.moveProduct(index, index+1)
   writeProducts();
 }
 
