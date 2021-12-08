@@ -13,7 +13,7 @@ class Product {
     }
 
     sum() {
-        return Math.round(this.quantity * this.price * 100) / 100
+        return Math.trunc(this.quantity * this.price * 100) / 100
     }
 }
 
@@ -89,7 +89,7 @@ class Receipt {
             sum += Product.prototype.sum.call(p)
         })
 
-        return Math.round(sum * 100) / 100
+        return Math.trunc(sum * 100) / 100
     }
 }
 
@@ -116,8 +116,8 @@ form.addEventListener('submit', function (event) {
     if (validateForm()) {
         let product = new Product(
             productName.value.trim(),
-            Math.round(quantity.value.trim() * 100) / 100,
-            Math.round(price.value.trim() * 100) / 100
+            Math.trunc(quantity.value.trim() * 100) / 100,
+            Math.trunc(price.value.trim() * 100) / 100
         )
 
         if (this.lastElementChild.id === "Add") {
