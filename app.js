@@ -368,30 +368,6 @@ function getEditFieldIndex(index) {
     addSaveButton();
 }
 
-
-function addSaveButton() {
-    let saveButton = document.createElement("input");
-    saveButton.setAttribute("type", "submit");
-    saveButton.setAttribute("value", "Zapisz");
-    saveButton.setAttribute("id", "Save");
-
-    form.appendChild(saveButton);
-}
-
-function deleteSaveButton() {
-    let saveButton = document.getElementById('Save');
-    saveButton.parentNode.removeChild(saveButton);
-}
-
-function addAddButton() {
-    let addButton = document.createElement("input");
-    addButton.setAttribute("type", "submit");
-    addButton.setAttribute("value", "Dodaj");
-    addButton.setAttribute("id", "Add");
-
-    form.appendChild(addButton);
-}
-
 function editingMode() {
     if (!isEditingMode) {
         deleteAddButton();
