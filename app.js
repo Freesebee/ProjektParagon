@@ -396,6 +396,7 @@ function editingMode() {
     if (!isEditingMode) {
         deleteAddButton();
         addSaveButton();
+        addCancelButton();
         isEditingMode = true;
         disableTableButtons();
     }
@@ -404,6 +405,7 @@ function editingMode() {
 function addingMode() {
     if (isEditingMode) {
         deleteSaveButton();
+        deleteCancelButton();
         addAddButton();
         isEditingMode = false;
         enableTableButtons();
@@ -444,3 +446,20 @@ function disableTableButtons() {
         button.disabled = true
     });
 }
+
+function addCancelButton() {
+    let cancelButton = document.createElement("input");
+    cancelButton.setAttribute("type", "reset");
+    cancelButton.setAttribute("value", "Anuluj");
+    cancelButton.setAttribute("id", "Cancel");
+    form.insertBefore(cancelButton, form.lastElementChild);
+}
+
+function deleteCancelButton() {
+    let cancelButton = document.getElementById('Cancel');
+    cancelButton.parentNode.removeChild(cancelButton);
+}
+
+form.addEventListener('reset', function (event) {
+    addingMode();
+});
